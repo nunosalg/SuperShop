@@ -8,7 +8,8 @@ namespace SuperShop.Data.Entities
         //[Key]
         public int Id { get; set; }
 
-
+        [Required]
+        [MaxLength(50, ErrorMessage ="The field {0} can't contain more than {1} characters length.")]
         public string Name { get; set; }
 
 
@@ -21,11 +22,11 @@ namespace SuperShop.Data.Entities
 
 
         [Display(Name = "Last Purchase")]
-        public DateTime LastPurchase {  get; set; }
+        public DateTime? LastPurchase {  get; set; }
 
 
         [Display(Name = "Last Sale")]
-        public DateTime LastSale { get; set; }
+        public DateTime? LastSale { get; set; }
 
 
         [Display(Name = "Is Available")]
