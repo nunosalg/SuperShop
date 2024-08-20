@@ -8,6 +8,7 @@ namespace SuperShop.Data.Entities
         //[Key]
         public int Id { get; set; }
 
+
         [Required]
         [MaxLength(50, ErrorMessage ="The field {0} can't contain more than {1} characters length.")]
         public string Name { get; set; }
@@ -18,7 +19,8 @@ namespace SuperShop.Data.Entities
 
 
         [Display(Name = "Image")]
-        public Guid ImageId { get; set; }
+        public string ImageUrl { get; set; }
+        //public Guid ImageId { get; set; }
 
 
         [Display(Name = "Last Purchase")]
@@ -40,8 +42,21 @@ namespace SuperShop.Data.Entities
         public User User { get; set; }
 
 
-        public string ImageFullPath => ImageId == Guid.Empty 
-            ? $"https://supershopns.azurewebsites.net/images/noimage.png" 
-            : $"https://supershopns.blob.core.windows.net/products/{ImageId}";
+        //public string ImageFullPath => ImageId == Guid.Empty 
+        //    ? $"https://supershopns.azurewebsites.net/images/noimage.png" 
+        //    : $"https://supershopns.blob.core.windows.net/products/{ImageId}";
+
+        public string ImageFullPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ImageUrl))
+                {
+                    return "~/images/noimage.png";
+                }
+
+                return $"https://localhost:44315{ImageUrl.Substring(1)}";
+            }
+        }
     }
 }

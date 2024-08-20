@@ -10,19 +10,26 @@ using SuperShop.Models;
 
 namespace SuperShop.Controllers
 {
-    
+  
     public class ProductsController : Controller
     {
         private readonly IProductRepository _productRepository;
         private readonly IUserHelper _userHelper;
-        private readonly IBlobHelper _blobHelper;
+        private readonly IImageHelper _imageHelper;
+        //private readonly IBlobHelper _blobHelper;
         private readonly IConverterHelper _converterHelper;
 
-        public ProductsController(IProductRepository productRepository, IUserHelper userHelper, IBlobHelper blobHelper, IConverterHelper converterHelper)
+        public ProductsController(
+            IProductRepository productRepository, 
+            IUserHelper userHelper, 
+            IImageHelper imageHelper,
+            //IBlobHelper blobHelper,
+            IConverterHelper converterHelper)
         {
             _productRepository = productRepository;
             _userHelper = userHelper;
-            _blobHelper = blobHelper;
+            _imageHelper = imageHelper;
+            //_blobHelper = blobHelper;
             _converterHelper = converterHelper;
         }
 
@@ -65,17 +72,19 @@ namespace SuperShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                Guid imageId = Guid.Empty;
+                //Guid imageId = Guid.Empty;
+                var path = string.Empty;
 
                 if (model.ImageFile != null && model.ImageFile.Length > 0)
                 {
-                    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "products");
+                    //imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "products");
+                    path = await _imageHelper.UploadImageAsync(model.ImageFile, "products");
                 }
 
-                var product = _converterHelper.ToProduct(model, imageId, true);
+                var product = _converterHelper.ToProduct(model, path, true);
 
-                //TODO : Modificar para o user que estiver logado
-                product.User = await _userHelper.GetUserByEmailAsync("nunosalgueiro23@gmail.com");
+                product.User = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+
                 await _productRepository.CreateAsync(product);
                 return RedirectToAction(nameof(Index));
             }
@@ -112,17 +121,18 @@ namespace SuperShop.Controllers
             {
                 try
                 {
-                    Guid imageId = model.ImageId;
+                    //Guid imageId = model.ImageId;
+                    var path = string.Empty;
+
 
                     if (model.ImageFile != null && model.ImageFile.Length > 0)
                     {
-                        imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "products");
+                        path = await _imageHelper.UploadImageAsync(model.ImageFile, "products");
                     }
 
-                    var product = _converterHelper.ToProduct(model, imageId, false);
+                    var product = _converterHelper.ToProduct(model, path, false);
 
-                    //TODO : Modificar para o user que estiver logado
-                    product.User = await _userHelper.GetUserByEmailAsync("nunosalgueiro23@gmail.com");
+                    product.User = await _userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                     await _productRepository.UpdateAsync(product);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -142,6 +152,7 @@ namespace SuperShop.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

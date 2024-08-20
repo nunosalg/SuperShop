@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.IO;
+﻿using System.IO;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace SuperShop.Helpers
 {
@@ -12,7 +12,10 @@ namespace SuperShop.Helpers
             string guid = Guid.NewGuid().ToString();
             string file = $"{guid}.jpg";
 
-            string path = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot\\images\\{folder}", file);
+            string path = Path.Combine(
+                Directory.GetCurrentDirectory(), 
+                $"wwwroot\\images\\{folder}", 
+                file);
 
             using (FileStream stream = new FileStream(path, FileMode.Create))
             {

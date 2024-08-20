@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SuperShop.Data.Entities;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using SuperShop.Data.Entities;
 
 namespace SuperShop.Data
 {

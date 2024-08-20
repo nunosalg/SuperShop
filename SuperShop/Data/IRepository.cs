@@ -1,6 +1,6 @@
-﻿using SuperShop.Data.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using SuperShop.Data.Entities;
 
 namespace SuperShop.Data
 {

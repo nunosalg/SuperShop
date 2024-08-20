@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace SuperShop.Helpers
 {
@@ -36,7 +36,6 @@ namespace SuperShop.Helpers
             Stream stream = File.OpenRead(image);
             return await UploadStreamAsync(stream, containerName);
         }
-
 
         private async Task<Guid> UploadStreamAsync(Stream stream, string containerName)
         {
