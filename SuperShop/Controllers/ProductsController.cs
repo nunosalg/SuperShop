@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +9,6 @@ using SuperShop.Models;
 
 namespace SuperShop.Controllers
 {
-  
     public class ProductsController : Controller
     {
         private readonly IProductRepository _productRepository;
@@ -20,8 +18,8 @@ namespace SuperShop.Controllers
         private readonly IConverterHelper _converterHelper;
 
         public ProductsController(
-            IProductRepository productRepository, 
-            IUserHelper userHelper, 
+            IProductRepository productRepository,
+            IUserHelper userHelper,
             IImageHelper imageHelper,
             //IBlobHelper blobHelper,
             IConverterHelper converterHelper)
