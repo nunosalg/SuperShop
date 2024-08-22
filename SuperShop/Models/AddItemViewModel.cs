@@ -11,7 +11,6 @@ namespace SuperShop.Models
         public int ProductId { get; set; }
 
 
-        [Display(Name = "Product")]
         [Range(0.0001, double.MaxValue, ErrorMessage = "The quantity must be a positive number.")]
         public double Quantity { get; set; }
 
