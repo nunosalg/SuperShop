@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SuperShop.Data.Entities;
-using System.Linq;
 
 namespace SuperShop.Data
 {
@@ -15,7 +14,12 @@ namespace SuperShop.Data
 
         public DbSet<OrderDetailTemp> OrderDetailsTemp { get; set; }
 
-        public DataContext(DbContextOptions<DataContext> options) : base(options) 
+        public DbSet<Country> Countries { get; set; }
+
+        public DbSet<City> Cities { get; set; }
+
+
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
 

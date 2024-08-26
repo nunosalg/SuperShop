@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace SuperShop.Data.Entities
 {
@@ -16,10 +15,9 @@ namespace SuperShop.Data.Entities
         public DateTime OrderDate { get; set; }
 
 
-        [Required]
         [Display(Name = "Delivery date")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}", ApplyFormatInEditMode = false)]
-        public DateTime DeliveryDate { get; set; }
+        public DateTime? DeliveryDate { get; set; }
 
 
         [Required]
@@ -34,7 +32,7 @@ namespace SuperShop.Data.Entities
 
 
         [DisplayFormat(DataFormatString = "{0:N2}")]
-        public double Quantity => Items == null ?  0 : Items.Sum(i => i.Quantity);
+        public double Quantity => Items == null ? 0 : Items.Sum(i => i.Quantity);
 
 
         [DisplayFormat(DataFormatString = "{0:C2}")]
