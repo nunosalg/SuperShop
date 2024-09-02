@@ -36,20 +36,12 @@ namespace SuperShop.Helpers
 
             try
             {
-                //// Carregar as credenciais do OAuth
-                //var credential = GoogleCredential.FromFile("C:\\Projetos\\SuperShop\\supershop-433912-b4c165731d85.json")
-                //    .CreateScoped("https://www.googleapis.com/auth/gmail.send");
-
-                //// Garantir que o token está atualizado
-                //var accessToken = await credential.UnderlyingCredential.GetAccessTokenForRequestAsync();
-
                 using (var client = new SmtpClient())
                 {
-                    client.Connect(smtp, int.Parse(port), SecureSocketOptions.StartTls);
+                    // Ignorar erros de certificado (não recomendado para produção)
+                    client.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
 
-                    //// Usar OAuth 2.0 para autenticação
-                    //var oauth2 = new SaslMechanismOAuth2(from, accessToken);
-                    //client.Authenticate(oauth2);
+                    client.Connect(smtp, int.Parse(port), SecureSocketOptions.StartTls);
 
                     client.Authenticate(from, password);
 
