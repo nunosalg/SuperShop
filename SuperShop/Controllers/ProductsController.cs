@@ -126,6 +126,10 @@ namespace SuperShop.Controllers
                     {
                         path = await _imageHelper.UploadImageAsync(model.ImageFile, "products");
                     }
+                    else
+                    {
+                        path = model.ImageUrl;
+                    }
 
                     var product = _converterHelper.ToProduct(model, path, false);
 
